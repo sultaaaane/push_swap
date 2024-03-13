@@ -2,7 +2,9 @@ NAME = push_swap
 BNAME = checker
 CC = cc
 
-SRC = 
+SRC = 	stack.c \
+		parse.c \
+		main.c	\
 
 OBJ = $(SRC:.c=.o)
 
@@ -11,13 +13,11 @@ all: $(NAME)
 $(NAME):$(OBJ)
 	@make -C libft
 	@make -C ft_printf
-	@make -C minilibx-linux
 	$(CC) $(SRC) -Wall -Wextra -Werror -fsanitize=address -g3 ./ft_printf/libftprintf.a ./libft/libft.a -o $(NAME)
 
 $(BNAME):$(BOBJ)
 	@make -C libft
 	@make -C ft_printf
-	@make -C minilibx-linux
 	$(CC) $(SRC) -Wall -Wextra -Werror -fsanitize=address -g3 ./ft_printf/libftprintf.a ./libft/libft.a -o $(BNAME)
 
 

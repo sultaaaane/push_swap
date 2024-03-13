@@ -6,15 +6,15 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 16:48:18 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/05 10:15:37 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:46:31 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	parsing(t_pushswap *ps)
-{
-}
+// int	parsing(t_pushswap *ps)
+// {
+// }
 
 void	ps_init(t_pushswap *ps, int ac, char **av)
 {
@@ -28,31 +28,16 @@ void	ps_init(t_pushswap *ps, int ac, char **av)
 
 int	main(int ac, char **av)
 {
-	t_pushswap	ps;
+	(void)ac;
+	int *tab = NULL;
+	tab = push_tab(tab,av);
 
-	ps_init(&ps, ac, av);
-	if (ac > 1)
+	int i = 0;
+	ft_printf("%d\n",tab[i]);
+	while (tab[i++])
 	{
-		if (!init_stack(&ps))
-			return (0);
-		if (!check_duplicates(&ps))
-			return (0);
-		if (!check_args(&ps))
-			return (0);
-		if (!check_sorted(&ps))
-		{
-			if (ps.size_a == 2)
-				sort_two(&ps);
-			else if (ps.size_a == 3)
-				sort_three(&ps);
-			else if (ps.size_a == 4)
-				sort_four(&ps);
-			else if (ps.size_a == 5)
-				sort_five(&ps);
-			else
-				sort(&ps);
-		}
+		ft_printf("%d\n",tab[i]);
 	}
-	free_stack(&ps);
+	
 	return (0);
 }
