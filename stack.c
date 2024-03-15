@@ -6,65 +6,72 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:04:16 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/15 03:32:13 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/15 16:42:14 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-
-void initializer(t_stack *stack)
+t_stack *stack_new(int value)
 {
-	stack->top = NULL;	
+	t_stack *stack;
+	
+	stack = (t_stack*)malloc(sizeof(t_stack));
+	if (!stack)
+		return (NULL);
+	stack->value = value;
+	stack->next = NULL;
+	return (stack);
 }
 
-int isempty(t_stack *stack)
+void stack_addfront(t_stack **stack,t_stack *new_s)
 {
-	return (stack->top == NULL);
-}
-
-void push(t_stack *stack,int value)
-{
-	t_node *new;
-
-	new = (t_node*)malloc(sizeof(t_node));
-	if (!new)
+	if (!new_s)
 		return ;
-	new->value = value;
-	new->next = stack->top;
-	stack->top = new;
+	if (*stack == NULL)
+	{
+		*stack = new_s;
+		return ;
+	}
+	new_s->next = *stack;
+	*stack = new_s;
 }
 
-int pop(t_stack *stack)
+t_stack *stack_last(t_stack *stack)
+{
+	if (!stack)
+		return (NULL);
+	while (stack->next)
+		stack = stack->next;
+	return (stack);
+}
+
+void stack_addback(t_stack **stack,t_stack *new_s)
+{
+	t_stack *temp;
+	
+	temp = *stack;			
+	if (!new_s)
+		return ;
+	if (*stack == NULL)
+	{
+		*stack = new_s;
+		return;
+	}
+	temp = stack_last(temp);
+	temp->next = new_s;
+}
+
+long pop(t_stack **stack)
 {
 	int value;
-	t_node *temp;
-	if(isempty(stack))
-	{
-		ft_printf("underflow");
-		exit(EXIT_FAILURE);
-	}
-	value = stack->top->value;
-	temp = stack->top->next;
-	stack->top = stack->top->next;
+	t_stack *temp; 
+	
+	if (*stack == NULL)
+		return (ft_printf("stack underflow"),2147483648);
+	value = (*stack)->value;
+	temp = *stack;
+	*stack = (*stack)->next;
 	free(temp);
 	return (value);
-}
-
-void print_stack(t_stack *stack)
-{
-	t_node *current;
-
-	current = stack->top;
-	while (!current)
-	{
-		ft_printf("%d",current->value);
-		current = current->next;
-	}
-	ft_printf("\n");
-}
-void pa(t_stack *stack_a,t_stack *stack_b)
-{
-	if (!isempty(stack_b))
-		push(stack_a,pop(stack_b));
 }

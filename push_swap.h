@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 16:48:32 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/15 02:56:23 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/15 14:08:42 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct s_node
-{
-	int				value;
-	struct s_node	*next;
-}					t_node;
-
 typedef struct s_stack
 {
-	t_node		*top;
+	int				value;
+	struct s_stack	*next;
 }					t_stack;
 
 typedef struct s_pushswap
@@ -38,8 +33,6 @@ typedef struct s_pushswap
 	int *tab;
 	int				size_a;
 	int				size_b;
-	int				argc;
-	char			**argv;
 }					t_pushswap;
 
 long ft_patoi(const char *str);
