@@ -5,6 +5,7 @@ CC = cc
 SRC = 	stack.c \
 		parse.c \
 		main.c	\
+		instructions.c \
 
 OBJ = $(SRC:.c=.o)
 

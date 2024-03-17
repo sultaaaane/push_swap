@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:04:16 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/15 16:42:14 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:08:22 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,13 @@ t_stack *stack_new(int value)
 	return (stack);
 }
 
-void stack_addfront(t_stack **stack,t_stack *new_s)
+void stack_addfront(t_stack **stack,int value)
 {
+	t_stack *new_s;
+	
+	new_s = stack_new(value);
 	if (!new_s)
 		return ;
-	if (*stack == NULL)
-	{
-		*stack = new_s;
-		return ;
-	}
 	new_s->next = *stack;
 	*stack = new_s;
 }
@@ -46,32 +44,41 @@ t_stack *stack_last(t_stack *stack)
 	return (stack);
 }
 
-void stack_addback(t_stack **stack,t_stack *new_s)
+void stack_addback(t_stack **stack,int value)
 {
-	t_stack *temp;
+	t_stack *last;
+	t_stack *new_s;
 	
-	temp = *stack;			
+	new_s = stack_new(value);
 	if (!new_s)
 		return ;
-	if (*stack == NULL)
+	if (!*stack)
 	{
 		*stack = new_s;
-		return;
+		return ;
 	}
-	temp = stack_last(temp);
-	temp->next = new_s;
+	last = stack_last(*stack);
+	last->next = new_s;
 }
 
-long pop(t_stack **stack)
+int pop(t_stack **stack)
 {
 	int value;
 	t_stack *temp; 
 	
 	if (*stack == NULL)
-		return (ft_printf("stack underflow"),2147483648);
+		return (ft_printf("stack underflow"),-1);
 	value = (*stack)->value;
 	temp = *stack;
 	*stack = (*stack)->next;
 	free(temp);
 	return (value);
+}
+
+void print_stack(t_stack *stack) {
+    while (stack != NULL) {
+        ft_printf("%d ", stack->value);
+        stack = stack->next;
+    }
+    ft_printf("\n");
 }
