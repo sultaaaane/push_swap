@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:19:19 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/20 03:22:01 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/21 00:52:56 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,6 +256,78 @@ void sort_5(t_stack **stack_a,t_stack **stack_b,t_pushswap *ps)
 		pa(stack_a,stack_b,ps);
 }
 
+int *push_array(t_stack *stack_a)
+{
+	int *tab;
+	int i;
+
+	tab = (int *)malloc(sizeof(int) * stack_size(stack_a));
+	i = 0;
+	while (stack_a != NULL)
+	{
+		tab[i] = stack_a->value;
+		stack_a = stack_a->next;
+		i++;
+	}
+	return (tab);
+}
+
+void array_indexing(t_stack *stack_a)
+{
+	int i;
+	int j;
+	int *tab;
+
+	tab = push_array(stack_a);
+	i = 0;
+	while (i < stack_size(stack_a))
+	{
+		j = 0;
+		while (j < stack_size(stack_a))
+		{
+			if (tab[i] == tab[j])
+				return ;
+			j++;
+		}
+		i++;
+	}
+	free(tab);
+}
+
+void sort_100(t_stack **stack_a,t_stack **stack_b,t_pushswap *ps)
+{
+	int *tab;
+	int i;
+	int j;
+	int max;
+	int index;
+
+	tab = push_array(*stack_a);
+	i = 0;
+	while (i < stack_size(*stack_a))
+	{
+		j = 0;
+		max = biggest_value(*stack_a);
+		index = indexing(*stack_a,max);
+		if (index <= stack_size(*stack_a) / 2 && index != 0)
+			ra(stack_a,ps,1);
+		else if (index >= stack_size(*stack_a) / 2 && index != 0)
+			rra(stack_a,ps,1);
+		else
+			pb(stack_a,stack_b,ps);
+		i++;
+	}
+	array_indexing(*stack_a);
+	while (!is_empty(*stack_b))
+		pa(stack_a,stack_b,ps);
+	free(tab);
+}
+
+// void sort_all(t_stack **stack_a, t_stack **stack_b,t_pushswap *ps)
+// {
+	
+// }
+
 void free_stack(t_stack **stack) {
 	t_stack *temp;
 	while (*stack != NULL) {
@@ -296,7 +368,7 @@ int main() {
 	
 	ft_printf("Stack A before sa: ");
 	print_stack(stack_a);
-	sort_5(&stack_a, &stack_b,&ps);
+	sort_100(&stack_a, &stack_b,&ps);
 	ft_printf("Stack A after sa: ");
 	print_stack(stack_a);
 	
