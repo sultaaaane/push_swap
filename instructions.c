@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:19:19 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/21 00:52:56 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/22 21:21:10 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,22 @@ int smallest_value(t_stack *stack)
 	return (min);
 }
 
+int biggest_value(t_stack *stack)
+{
+	t_stack *temp;
+	int max;
+	
+	temp = stack;
+	max = temp->value;
+	while (temp != NULL)
+	{
+		if (temp->value > max)
+			max = temp->value;
+		temp = temp->next;
+	}
+	return (max);
+}
+
 int indexing(t_stack *stack,int value)
 {
 	t_stack *temp;
@@ -204,21 +220,7 @@ int indexing(t_stack *stack,int value)
 	return (index);
 }
 
-int biggest_value(t_stack *stack)
-{
-	t_stack *temp;
-	int max;
-	
-	temp = stack;
-	max = temp->value;
-	while (temp != NULL)
-	{
-		if (temp->value > max)
-			max = temp->value;
-		temp = temp->next;
-	}
-	return (max);
-}
+
 
 int stack_size(t_stack *stack)
 {
@@ -272,61 +274,125 @@ int *push_array(t_stack *stack_a)
 	return (tab);
 }
 
-void array_indexing(t_stack *stack_a)
+void array_indexing(t_stack *stack_a,int *tab)
 {
+	t_stack *temp;
 	int i;
 	int j;
-	int *tab;
-
-	tab = push_array(stack_a);
+	
+	temp = stack_a;
 	i = 0;
-	while (i < stack_size(stack_a))
+	while (temp != NULL)
 	{
 		j = 0;
 		while (j < stack_size(stack_a))
 		{
-			if (tab[i] == tab[j])
-				return ;
+			if (temp->value == tab[j])
+				temp->index = j;
+			j++;
+		}
+		temp = temp->next;
+	}
+}
+
+void sort_array(int *tab,int size)
+{
+	int i;
+	int j;
+	int holder;
+
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			if (tab[i] < tab[j])
+			{
+				holder = tab[i];
+				tab[i] = tab[j];
+				tab[j] = holder;
+			}
 			j++;
 		}
 		i++;
 	}
-	free(tab);
 }
 
-void sort_100(t_stack **stack_a,t_stack **stack_b,t_pushswap *ps)
+void push_a(t_stack **stack_a,t_stack **stack_b,t_pushswap *ps)
 {
-	int *tab;
-	int i;
-	int j;
-	int max;
 	int index;
+	int highest;
 
-	tab = push_array(*stack_a);
-	i = 0;
-	while (i < stack_size(*stack_a))
+	highest = biggest_value(*stack_b);
+	index = indexing(*stack_b,highest);
+	print_stack(*stack_a);
+	print_stack(*stack_b);
+	while (stack_size(*stack_b) > 0)
 	{
-		j = 0;
-		max = biggest_value(*stack_a);
-		index = indexing(*stack_a,max);
-		if (index <= stack_size(*stack_a) / 2 && index != 0)
-			ra(stack_a,ps,1);
-		else if (index >= stack_size(*stack_a) / 2 && index != 0)
-			rra(stack_a,ps,1);
+		if (highest == (*stack_b)->value)
+		{
+				pa(stack_a,stack_b,ps);
+			if (stack_size(*stack_b) > 0)
+			{
+				highest = biggest_value(*stack_b);
+				index = indexing(*stack_b,highest);
+			}
+		}
+		else if (index <= stack_size(*stack_b) / 2 && highest != (*stack_b)->value)
+				rb(stack_b,ps,1);
 		else
-			pb(stack_a,stack_b,ps);
+			rrb(stack_a,ps,1);
+		}
+}
+
+int find_index(t_stack *stack,int index,int p)
+{
+	int i;
+
+	i = 0;
+	while (stack != NULL)
+	{
+		if (stack->index <= index || stack->index <= index + p)
+			break;
+		stack = stack->next;
 		i++;
 	}
-	array_indexing(*stack_a);
-	while (!is_empty(*stack_b))
-		pa(stack_a,stack_b,ps);
-	free(tab);
+	return (i);
 }
 
-// void sort_all(t_stack **stack_a, t_stack **stack_b,t_pushswap *ps)
-// {
+void sort_all(t_stack **stack_a, t_stack **stack_b,t_pushswap *ps)
+{
+	int i;
+	int p;
+	int *tab;
 	
-// }
+	tab = push_array(*stack_a);
+	sort_array(tab,stack_size(*stack_a));
+	array_indexing(*stack_a,tab);
+	i = 0;
+	p = 15;
+	while (i < stack_size(*stack_a))
+	{
+		if ((*stack_a)->index <= i)
+		{
+			pb(stack_a,stack_b,ps);
+			rb(stack_b,ps,1);
+			i++;
+		}
+		else if ((*stack_a)->index <= i + p)
+		{
+			pb(stack_a,stack_b,ps);
+			i++;
+		}
+		else if (find_index(*stack_a,i,p) < stack_size(*stack_a) / 2)
+			ra(stack_a,ps,1);
+		else
+			rra(stack_a,ps,1);
+	}
+	push_a(stack_a,stack_b,ps);
+}
+
 
 void free_stack(t_stack **stack) {
 	t_stack *temp;
@@ -353,7 +419,7 @@ int main() {
 	stack_addfront(&stack_a, stack_new(2));
 	stack_addfront(&stack_a, stack_new(3));
 	stack_addfront(&stack_a, stack_new(4));
-	// stack_addfront(&stack_a, stack_new(7));
+	stack_addfront(&stack_a, stack_new(7));
 	// stack_addfront(&stack_a, stack_new(6));
 	
 	// Push 6 numbers to stack_b
@@ -368,7 +434,7 @@ int main() {
 	
 	ft_printf("Stack A before sa: ");
 	print_stack(stack_a);
-	sort_100(&stack_a, &stack_b,&ps);
+	sort_all(&stack_a, &stack_b, &ps);
 	ft_printf("Stack A after sa: ");
 	print_stack(stack_a);
 	

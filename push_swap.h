@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 16:48:32 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/20 03:19:33 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/22 01:08:21 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct s_stack
 {
 	int				value;
+	int 			index;
 	struct s_stack	*next;
 }					t_stack;
 
