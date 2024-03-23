@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 17:32:15 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/15 03:24:53 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/23 01:51:52 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,25 @@ int	arg_char(char *str)
 	return (0);
 }
 
-int	is_dup(int *tab)
+int	is_dup(t_stack *stack)
 {
-	int	i;
-	int	j;
+	t_stack	*temp;
+	t_stack	*temp2;
 
-	i = 0;
-	while (tab[i++])
+	temp = stack;
+	while (temp)
 	{
-		j = 1;
-		while (tab[j++])
+		temp2 = temp->next;
+		while (temp2)
 		{
-			if (tab[i] == tab[j])
+			if (temp->value == temp2->value)
+			{
+				ft_printf("Error\n");
 				return (1);
+			}
+			temp2 = temp2->next;
 		}
+		temp = temp->next;
 	}
 	return (0);
 }
@@ -143,6 +148,27 @@ void  check_parse(int ac, char **av)
 				ft_free2d(temp);
 				exit(EXIT_FAILURE);
 			}
+			j++;
+		}
+		i++;
+		ft_free2d(temp);
+	}
+}
+
+void push_to_stack(t_stack **stack, int ac, char **av)
+{
+	int i;
+	int j;
+	char **temp;
+	
+	i = 1;
+	while (i < ac)
+	{
+		temp = ft_split(av[i],' ');
+		j = 0;
+		while (temp[j])
+		{
+			stack_addback(stack, stack_new(ft_patoi(temp[j])));
 			j++;
 		}
 		i++;

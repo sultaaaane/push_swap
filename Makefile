@@ -14,7 +14,7 @@ all: $(NAME)
 $(NAME):$(OBJ)
 	@make -C libft
 	@make -C ft_printf
-	$(CC) $(SRC) -Wall -Wextra -Werror -fsanitize=address -g3 ./ft_printf/libftprintf.a ./libft/libft.a -o $(NAME)
+	$(CC) $(SRC) -Wall -Wextra -Werror  ./ft_printf/libftprintf.a ./libft/libft.a -o $(NAME)
 
 $(BNAME):$(BOBJ)
 	@make -C libft

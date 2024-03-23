@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 16:48:32 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/22 01:08:21 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/23 01:53:17 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_pushswap
 long ft_patoi(const char *str);
 long patoi_check(long result);
 int arg_char(char *str);
-int is_dup(int *tab);
+int	is_dup(t_stack *stack);
 void initializer(t_stack *stack);
 int isempty(t_stack *stack);
 t_stack *pop(t_stack **stack);
@@ -71,7 +71,7 @@ void sort_3(t_stack **stack,t_pushswap *ps);
 void sort_2(t_stack **stack_a,t_pushswap *ps);
 int is_empty(t_stack *stack);
 int is_sorted(t_stack *stack);
-
+void push_to_stack(t_stack **stack, int ac, char **av);
 
 
 #endif

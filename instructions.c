@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:19:19 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/22 21:21:10 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/23 02:48:46 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void ss(t_stack *stack_a,t_stack *stack_b,t_pushswap *ps)
 	sa(stack_a,ps,0);
 	sb(stack_b,ps,0);
 	ft_printf("ss\n");
+
 }
 
 void pa(t_stack **stack_a,t_stack **stack_b,t_pushswap *ps)
@@ -319,31 +320,93 @@ void sort_array(int *tab,int size)
 	}
 }
 
-void push_a(t_stack **stack_a,t_stack **stack_b,t_pushswap *ps)
-{
-	int index;
-	int highest;
+// void push_a(t_stack **stack_a,t_stack **stack_b,t_pushswap *ps)
+// {
+// 	int index;
+// 	int highest;
 
-	highest = biggest_value(*stack_b);
-	index = indexing(*stack_b,highest);
-	print_stack(*stack_a);
-	print_stack(*stack_b);
+// 	highest = biggest_value(*stack_b);
+// 	index = indexing(*stack_b,highest);
+// 	// print_stack(*stack_a);
+// 	// print_stack(*stack_b);
+// 	while (stack_size(*stack_b) > 0)
+// 	{
+// 		if (highest == (*stack_b)->value)
+// 		{
+// 			pa(stack_a,stack_b,ps);
+// 			if (stack_size(*stack_b) > 0)
+// 			{
+// 				highest = biggest_value(*stack_b);
+// 				index = indexing(*stack_b,highest);
+// 			}
+// 		}
+// 		else 
+// 		{
+// 			if (index <= stack_size(*stack_b) / 2 && highest != (*stack_b)->value)
+// 					rb(stack_b,ps,1);
+// 			else
+// 				rrb(stack_a,ps,1);
+// 		}
+// 		ft_printf("size : %d \n",(*stack_b)->value);
+// 		ft_printf("%d \n",stack_size(*stack_b));
+// 		ft_printf("highest : %d \n",highest);
+// 		ft_printf("index : %d \n",index);
+// 	}
+// }
+
+int	find_position(t_stack *stack, int value)
+{
+	int	position;
+
+	position = 0;
+	while (value != stack->value)
+	{
+		position++;
+		stack = stack->next;
+	}
+	return (position);
+}
+int	find_highest(t_stack *stack)
+{
+	int	highest;
+
+	highest = stack->value;
+	while (stack)
+	{
+		if (highest < stack->value)
+			highest = stack->value;
+		stack = stack->next;
+	}
+	return (highest);
+}
+
+void	ft_push_to_a(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps)
+{
+	int	highest;
+	int	position;
+
+	highest = find_highest(*stack_b);
+	position = find_position(*stack_b, highest);
 	while (stack_size(*stack_b) > 0)
 	{
 		if (highest == (*stack_b)->value)
 		{
-				pa(stack_a,stack_b,ps);
+			pa(stack_a, stack_b, ps);
 			if (stack_size(*stack_b) > 0)
 			{
-				highest = biggest_value(*stack_b);
-				index = indexing(*stack_b,highest);
+				highest = find_highest(*stack_b);
+				position = find_position(*stack_b, highest);
 			}
 		}
-		else if (index <= stack_size(*stack_b) / 2 && highest != (*stack_b)->value)
-				rb(stack_b,ps,1);
 		else
-			rrb(stack_a,ps,1);
+		{
+			if (position <= (stack_size(*stack_b) / 2)
+				&& highest != (*stack_b)->value)
+				rb(stack_b, ps, 1);
+			else
+				rrb(stack_b, ps, 1);
 		}
+	}
 }
 
 int find_index(t_stack *stack,int index,int p)
@@ -367,12 +430,13 @@ void sort_all(t_stack **stack_a, t_stack **stack_b,t_pushswap *ps)
 	int p;
 	int *tab;
 	
+	int num = stack_size(*stack_a);
 	tab = push_array(*stack_a);
 	sort_array(tab,stack_size(*stack_a));
 	array_indexing(*stack_a,tab);
 	i = 0;
-	p = 15;
-	while (i < stack_size(*stack_a))
+	p = 30;
+	while (i < num)
 	{
 		if ((*stack_a)->index <= i)
 		{
@@ -385,14 +449,46 @@ void sort_all(t_stack **stack_a, t_stack **stack_b,t_pushswap *ps)
 			pb(stack_a,stack_b,ps);
 			i++;
 		}
-		else if (find_index(*stack_a,i,p) < stack_size(*stack_a) / 2)
+		else if (find_index(*stack_a,i,p) < stack_size(*stack_a) / 2 && !is_empty(*stack_a))
 			ra(stack_a,ps,1);
 		else
 			rra(stack_a,ps,1);
 	}
-	push_a(stack_a,stack_b,ps);
+	// ft_printf("%d \n",stack_size(*stack_a));
+	// ft_printf("%d \n",stack_size(*stack_b));
+	// free(tab);
+	ft_push_to_a(stack_a,stack_b,ps);
 }
 
+// void sort_all(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps) {
+//     int i;
+//     int p;
+//     int *tab;
+    
+// 	int num = stack_size(*stack_a);
+//     tab = push_array(*stack_a);
+//     sort_array(tab, stack_size(*stack_a));
+//     array_indexing(*stack_a, tab);
+//     i = 0;
+//     p = 30;
+//     while (i < num)
+// 	{
+//         if ((*stack_a)->index <= i)
+// 		{
+//             pb(stack_a, stack_b, ps);
+//             rb(stack_b, ps, 1);
+//             i++;
+//         } else if ((*stack_a)->index <= i + p) {
+//             pb(stack_a, stack_b, ps);
+//             i++;
+//         } else if (find_index(*stack_a, i, p) < stack_size(*stack_a) / 2)
+//             ra(stack_a, ps, 1);
+//         else
+//             rra(stack_a, ps, 1);
+//     }
+// 	free(tab);
+//     push_a(stack_a, stack_b, ps);
+// }
 
 void free_stack(t_stack **stack) {
 	t_stack *temp;
@@ -403,40 +499,52 @@ void free_stack(t_stack **stack) {
 	}
 }
 
-int main() {
+int main(int ac,char **av) {
+
 	t_stack *stack_a = NULL;
 	t_stack *stack_b = NULL;
 	t_pushswap ps;
-
-	// Initialize the pushswap struct and the stacks
-	ps.size_a = 5;
+	
 	ps.size_b = 0;
-	stack_a = NULL;
-	stack_b = NULL;
+	// check_parse(ac, av);
+	push_to_stack(&stack_a, ac, av);
+	if (is_sorted(stack_a) || is_dup(stack_a))
+	{
+		free_stack(&stack_a);
+		return (0);
+	}
+	
+	ps.size_a = stack_size(stack_a);
+	// print_stack(stack_a);
+	// // Initialize the pushswap struct and the stacks
+	// stack_a = NULL;
+	// stack_b = NULL;
 
-	// Push 6 numbers to stack_a
-	stack_addfront(&stack_a, stack_new(1));
-	stack_addfront(&stack_a, stack_new(2));
-	stack_addfront(&stack_a, stack_new(3));
-	stack_addfront(&stack_a, stack_new(4));
-	stack_addfront(&stack_a, stack_new(7));
+	// // Push 6 numbers to stack_a
 	// stack_addfront(&stack_a, stack_new(6));
+	// stack_addfront(&stack_a, stack_new(3));
+	// stack_addfront(&stack_a, stack_new(1));
+	// stack_addfront(&stack_a, stack_new(4));
+	// stack_addfront(&stack_a, stack_new(5));
+	// stack_addfront(&stack_a, stack_new(5));
 	
-	// Push 6 numbers to stack_b
-	// stack_addfront(&stack_b, stack_new(7));
-	// stack_addfront(&stack_b, stack_new(8));
-	// stack_addfront(&stack_b, stack_new(9));
-	// stack_addfront(&stack_b, stack_new(10));
-	// stack_addfront(&stack_b, stack_new(11));
-	// stack_addfront(&stack_b, stack_new(12));
+	// // stack_addfront(&stack_a, stack_new(6));
 	
-	// Call the functions and print the state of the stacks after each operation
+	// // Push 6 numbers to stack_b
+	// // stack_addfront(&stack_b, stack_new(7));
+	// // stack_addfront(&stack_b, stack_new(8));
+	// // stack_addfront(&stack_b, stack_new(9));
+	// // stack_addfront(&stack_b, stack_new(10));
+	// // stack_addfront(&stack_b, stack_new(11));
+	// // stack_addfront(&stack_b, stack_new(12));
 	
-	ft_printf("Stack A before sa: ");
-	print_stack(stack_a);
+	// // Call the functions and print the state of the stacks after each operation
+	
+	// ft_printf("Stack A before sa: ");
+	// print_stack(stack_a);
 	sort_all(&stack_a, &stack_b, &ps);
-	ft_printf("Stack A after sa: ");
-	print_stack(stack_a);
+	// ft_printf("Stack A after sa: ");
+	// print_stack(stack_a);
 	
 
 	free_stack(&stack_a);
