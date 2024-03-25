@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 17:32:15 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/23 01:51:52 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/24 21:07:24 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	is_dup(t_stack *stack)
 	t_stack	*temp2;
 
 	temp = stack;
+	if (!temp)
+		return (0);
 	while (temp)
 	{
 		temp2 = temp->next;
@@ -84,10 +86,10 @@ int	is_dup(t_stack *stack)
 	return (0);
 }
 
-int is_whitespace(char *str)
+int	is_whitespace(char *str)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (str[i])
 	{
@@ -98,9 +100,9 @@ int is_whitespace(char *str)
 	return (0);
 }
 
-void ft_free2d(char **str)
+void	ft_free2d(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -111,10 +113,10 @@ void ft_free2d(char **str)
 	free(str);
 }
 
-int is_num(char *str)
+int	is_num(char *str)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	if (str[i] == '+' || str[i] == '-')
 		i++;
@@ -127,18 +129,18 @@ int is_num(char *str)
 	return (0);
 }
 
-void  check_parse(int ac, char **av)
+void	check_parse(int ac, char **av)
 {
-	int i;
-	int j;
-	char **temp;
-	
+	int		i;
+	int		j;
+	char	**temp;
+
 	i = 1;
-	while (i < ac)
+	while (i < ac && av[i])
 	{
 		if (is_whitespace(av[i]) || av[i][0] == '\0')
 			return (write(2, "Error\n", 6), exit(EXIT_FAILURE));
-		temp = ft_split(av[i],' ');
+		temp = ft_split(av[i], ' ');
 		j = 0;
 		while (temp[j])
 		{
@@ -155,16 +157,16 @@ void  check_parse(int ac, char **av)
 	}
 }
 
-void push_to_stack(t_stack **stack, int ac, char **av)
+void	push_to_stack(t_stack **stack, int ac, char **av)
 {
-	int i;
-	int j;
-	char **temp;
-	
+	int		i;
+	int		j;
+	char	**temp;
+
 	i = 1;
 	while (i < ac)
 	{
-		temp = ft_split(av[i],' ');
+		temp = ft_split(av[i], ' ');
 		j = 0;
 		while (temp[j])
 		{

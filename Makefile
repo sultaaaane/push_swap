@@ -3,9 +3,15 @@ BNAME = checker
 CC = cc
 
 SRC = 	stack.c \
+		stack1.c \
 		parse.c \
 		main.c	\
 		instructions.c \
+		instructions1.c \
+		instructions2.c \
+		instructions3.c \
+		instructions4.c \
+		instructions5.c \
 
 OBJ = $(SRC:.c=.o)
 
@@ -14,7 +20,7 @@ all: $(NAME)
 $(NAME):$(OBJ)
 	@make -C libft
 	@make -C ft_printf
-	$(CC) $(SRC) -Wall -Wextra -Werror  ./ft_printf/libftprintf.a ./libft/libft.a -o $(NAME)
+	$(CC) $(SRC) -Wall -Wextra -Werror -fsanitize=address -g3  ./ft_printf/libftprintf.a ./libft/libft.a -o $(NAME)
 
 $(BNAME):$(BOBJ)
 	@make -C libft
