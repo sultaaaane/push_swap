@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:19:19 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/24 22:53:21 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/25 08:23:28 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,30 +55,18 @@ void	pa(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps)
 	ft_printf("pa\n");
 }
 
-int	main(int ac, char **av)
+int	smallest_value(t_stack *stack)
 {
-	t_stack		*stack_a;
-	t_stack		*stack_b;
-	t_pushswap	ps;
+	t_stack	*temp;
+	int		min;
 
-	stack_a = NULL;
-	stack_b = NULL;
-	ps.size_b = 0;
-	// check_parse(ac, av);
-	push_to_stack(&stack_a, ac, av);
-	if (is_sorted(stack_a) || is_dup(stack_a))
+	temp = stack;
+	min = temp->value;
+	while (temp != NULL)
 	{
-		free_stack(&stack_a);
-		return (0);
+		if (temp->value < min)
+			min = temp->value;
+		temp = temp->next;
 	}
-	ps.size_a = stack_size(stack_a);
-	// ft_printf("Stack A before sa: ");
-	// print_stack(stack_a);
-	sort_all(&stack_a, &stack_b, &ps);
-	// sort_3(&stack_a, &ps);
-	// ft_printf("Stack A after sa: ");
-	// print_stack(stack_a);
-	free_stack(&stack_a);
-	free_stack(&stack_b);
-	return (0);
+	return (min);
 }

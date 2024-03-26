@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:22:28 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/25 05:39:43 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/25 22:19:01 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 void	array_indexing(t_stack *stack_a, int *tab)
 {
 	t_stack	*temp;
-	int		i;
 	int		j;
 
 	temp = stack_a;
-	i = 0;
 	while (temp != NULL)
 	{
 		j = 0;

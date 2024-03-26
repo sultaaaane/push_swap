@@ -5,6 +5,7 @@ CC = cc
 SRC = 	stack.c \
 		stack1.c \
 		parse.c \
+		parse1.c \
 		main.c	\
 		instructions.c \
 		instructions1.c \

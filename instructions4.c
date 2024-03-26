@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:24:16 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/24 22:27:40 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/25 22:25:02 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,17 @@ void	sort_2(t_stack **stack_a, t_pushswap *ps)
 		sa(*stack_a, ps, 1);
 }
 
+void	sort_3_help(t_stack **stack, t_pushswap *ps)
+{
+	ra(stack, ps, 1);
+	if ((*stack)->value > (*stack)->next->value
+		&& (*stack)->value < (*stack)->next->next->value)
+		sa(*stack, ps, 1);
+	else if ((*stack)->value > (*stack)->next->value
+		&& (*stack)->value > (*stack)->next->next->value)
+		ra(stack, ps, 1);
+}
+
 void	sort_3(t_stack **stack, t_pushswap *ps)
 {
 	if (*stack == NULL || (*stack)->next == NULL
@@ -57,46 +68,14 @@ void	sort_3(t_stack **stack, t_pushswap *ps)
 		sa(*stack, ps, 1);
 	else if ((*stack)->value > (*stack)->next->value
 		&& (*stack)->value > (*stack)->next->next->value)
-	{
-		ra(stack, ps, 1);
-		if ((*stack)->value > (*stack)->next->value
-			&& (*stack)->value < (*stack)->next->next->value)
-			sa(*stack, ps, 1);
-		else if ((*stack)->value > (*stack)->next->value
-			&& (*stack)->value > (*stack)->next->next->value)
-			ra(stack, ps, 1);
-	}
+		sort_3_help(stack, ps);
 	else if ((*stack)->value < (*stack)->next->value
 		&& (*stack)->value > (*stack)->next->next->value)
-	{
-		ra(stack, ps, 1);
-		if ((*stack)->value > (*stack)->next->value
-			&& (*stack)->value < (*stack)->next->next->value)
-			sa(*stack, ps, 1);
-		else if ((*stack)->value > (*stack)->next->value
-			&& (*stack)->value > (*stack)->next->next->value)
-			ra(stack, ps, 1);
-	}
+		sort_3_help(stack, ps);
 	else if ((*stack)->value < (*stack)->next->value
 		&& (*stack)->value < (*stack)->next->next->value)
 	{
 		sa(*stack, ps, 1);
 		ra(stack, ps, 1);
 	}
-}
-
-int	smallest_value(t_stack *stack)
-{
-	t_stack *temp;
-	int min;
-
-	temp = stack;
-	min = temp->value;
-	while (temp != NULL)
-	{
-		if (temp->value < min)
-			min = temp->value;
-		temp = temp->next;
-	}
-	return (min);
 }

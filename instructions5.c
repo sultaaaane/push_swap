@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:24:48 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/24 22:24:54 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/25 08:19:49 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	rr(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps)
 
 void	rra(t_stack **stack, t_pushswap *ps, int flag)
 {
-	t_stack *last;
-	t_stack *second_last;
+	t_stack	*last;
+	t_stack	*second_last;
 
 	if (ps->size_a < 2)
 		return ;
