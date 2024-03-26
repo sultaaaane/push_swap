@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 16:48:18 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/26 22:24:11 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/26 22:42:02 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int ac, char **av)
 	else if (ps.size_a == 3)
 		sort_3(&stack_a, &ps);
 	else if (ps.size_a <= 5)
-		sort_5(&stack_a, &stack_b, &ps);
+		sort_5(&stack_a, &stack_b, &ps); // doesn't sort 5 2 1 3 4 
 	else
 		sort_all(&stack_a, &stack_b, &ps);
 	free_stack(&stack_a);
