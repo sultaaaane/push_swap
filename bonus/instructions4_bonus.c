@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instructions4.c                                    :+:      :+:    :+:   */
+/*   instructions4_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:24:16 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/31 15:10:57 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/29 11:19:04 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 void	rrb(t_stack **stack, t_pushswap *ps, int flag)
 {
@@ -29,14 +29,14 @@ void	rrb(t_stack **stack, t_pushswap *ps, int flag)
 	last->next = *stack;
 	*stack = last;
 	if (flag)
-		ft_putstr_fd("rrb\n", 2);
+		ft_printf("rrb\n");
 }
 
 void	rrr(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps)
 {
 	rra(stack_a, ps, 0);
 	rrb(stack_b, ps, 0);
-	ft_putstr_fd("rrr\n", 2);
+	ft_printf("rrr\n");
 }
 
 void	sort_2(t_stack **stack_a, t_pushswap *ps)

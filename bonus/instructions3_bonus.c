@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instructions3.c                                    :+:      :+:    :+:   */
+/*   instructions3_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:23:51 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/31 15:18:34 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/03/29 11:19:04 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 int	biggest_value(t_stack *stack)
 {
@@ -74,9 +74,9 @@ void	sort_5(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps)
 			smallest = smallest_value(*stack_a);
 		}
 		index = indexing(*stack_a, smallest);
-		if (index < stack_size(*stack_a) / 2 && index != 0)
+		if (index <= stack_size(*stack_a) / 2 && index != 0)
 			ra(stack_a, ps, 1);
-		else
+		else if (index >= stack_size(*stack_a) / 2 && index != 0)
 			rra(stack_a, ps, 1);
 	}
 	sort_3(stack_a, ps);

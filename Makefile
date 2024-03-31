@@ -14,7 +14,20 @@ SRC = 	stack.c \
 		instructions4.c \
 		instructions5.c \
 
+BSRC = 	bonus/stack_bonus.c \
+		bonus/stack1_bonus.c \
+		bonus/parse_bonus.c \
+		bonus/parse1_bonus.c \
+		bonus/main_bonus.c	\
+		bonus/instructions_bonus.c \
+		bonus/instructions1_bonus.c \
+		bonus/instructions2_bonus.c \
+		bonus/instructions3_bonus.c \
+		bonus/instructions4_bonus.c \
+		bonus/instructions5_bonus.c \
+
 OBJ = $(SRC:.c=.o)
+BOBJ = $(BSRC:.c=.o)
 
 all: $(NAME) 
 
@@ -28,9 +41,10 @@ $(BNAME):$(BOBJ)
 	@make -C ft_printf
 	$(CC) $(SRC) -Wall -Wextra -Werror -fsanitize=address -g3 ./ft_printf/libftprintf.a ./libft/libft.a -o $(BNAME)
 
+bonus : $(BNAME)
 
 clean:
-	rm -rf $(OBJ) $(BOBJ)
+	rm -rf $(OBJ) bonus/$(BOBJ)
 	@make clean -C libft
 	@make clean -C ft_printf
 fclean: clean
