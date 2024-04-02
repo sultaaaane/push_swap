@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:26:58 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/29 11:19:04 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/04/02 21:29:28 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ void	ft_free2d(char **str)
 	free(str);
 }
 
-int isallwhitespace(char *str)
+int	isallwhitespace(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str)

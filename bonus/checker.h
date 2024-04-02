@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 16:48:32 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/29 11:20:01 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/04/02 21:30:23 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,18 @@ typedef struct s_pushswap
 
 void				pa(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps);
 void				ss(t_stack *stack_a, t_stack *stack_b, t_pushswap *ps);
-void				sb(t_stack *stack, t_pushswap *ps, int flag);
-void				sa(t_stack *stack, t_pushswap *ps, int flag);
+void				sb(t_stack *stack, t_pushswap *ps);
+void				sa(t_stack *stack, t_pushswap *ps);
 void				pb(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps);
-void				ra(t_stack **stack, t_pushswap *ps, int flag);
-void				rb(t_stack **stack, t_pushswap *ps, int flag);
+void				ra(t_stack **stack, t_pushswap *ps);
+void				rb(t_stack **stack, t_pushswap *ps);
 void				rr(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps);
-void				rra(t_stack **stack, t_pushswap *ps, int flag);
+void				rra(t_stack **stack, t_pushswap *ps);
 int					smallest_value(t_stack *stack);
 void				sort_3(t_stack **stack, t_pushswap *ps);
 void				sort_2(t_stack **stack_a, t_pushswap *ps);
 void				rrr(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps);
-void				rrb(t_stack **stack, t_pushswap *ps, int flag);
+void				rrb(t_stack **stack, t_pushswap *ps);
 int					*push_array(t_stack *stack_a);
 void				sort_5(t_stack **stack_a, t_stack **stack_b,
 						t_pushswap *ps);
@@ -88,6 +88,12 @@ int					stack_size(t_stack *stack);
 void				free_stack(t_stack **stack);
 void				sort_all(t_stack **stack_a, t_stack **stack_b,
 						t_pushswap *ps);
-int 				isallwhitespace(char *str);
-
+int					isallwhitespace(char *str);
+int					ft_strcmp(const char *str1, const char *str2);
+int					check_instructions(char *str, t_stack **stack_a,
+						t_stack **stack_b, t_pushswap *ps);
+int					get_instructions(t_stack **stack_a, t_stack **stack_b,
+						t_pushswap *ps);
+void				main_helper(t_stack *stack_a, t_stack *stack_b,
+						t_pushswap *ps);
 #endif

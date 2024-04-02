@@ -39,12 +39,12 @@ $(NAME):$(OBJ)
 $(BNAME):$(BOBJ)
 	@make -C libft
 	@make -C ft_printf
-	$(CC) $(SRC) -Wall -Wextra -Werror -fsanitize=address -g3 ./ft_printf/libftprintf.a ./libft/libft.a -o $(BNAME)
+	$(CC) $(BSRC) -Wall -Wextra -Werror -fsanitize=address -g3 ./ft_printf/libftprintf.a ./libft/libft.a -o $(BNAME)
 
 bonus : $(BNAME)
 
 clean:
-	rm -rf $(OBJ) bonus/$(BOBJ)
+	rm -rf $(OBJ) bonus/*.o
 	@make clean -C libft
 	@make clean -C ft_printf
 fclean: clean

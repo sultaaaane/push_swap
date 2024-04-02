@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 16:48:32 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/26 20:56:38 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/04/02 21:46:41 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ void				free_stack(t_stack **stack);
 void				sort_all(t_stack **stack_a, t_stack **stack_b,
 						t_pushswap *ps);
 int 				isallwhitespace(char *str);
+void	main_helper(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps);
 
 #endif

@@ -6,107 +6,78 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:22:28 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/29 11:19:04 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/04/02 21:30:38 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-void	array_indexing(t_stack *stack_a, int *tab)
+int	ft_strcmp(const char *str1, const char *str2)
 {
-	t_stack	*temp;
-	int		j;
+	return (ft_strncmp(str1, str2, ft_strlen(str1) + 1));
+}
 
-	temp = stack_a;
+int	check_instructions(char *str, t_stack **stack_a, t_stack **stack_b,
+		t_pushswap *ps)
+{
+	if (!ft_strcmp(str, "pa\n"))
+		return (pa(stack_a, stack_b, ps), 0);
+	else if (!ft_strcmp(str, "pb\n"))
+		return (pb(stack_a, stack_b, ps), 0);
+	else if (!ft_strcmp(str, "sa\n"))
+		return (sa(*stack_a, ps), 0);
+	else if (!ft_strcmp(str, "sb\n"))
+		return (sb(*stack_b, ps), 0);
+	else if (!ft_strcmp(str, "ss\n"))
+		return (ss(*stack_a, *stack_b, ps), 0);
+	else if (!ft_strcmp(str, "ra\n"))
+		return (ra(stack_a, ps), 0);
+	else if (!ft_strcmp(str, "rb\n"))
+		return (rb(stack_b, ps), 0);
+	else if (!ft_strcmp(str, "rr\n"))
+		return (rr(stack_a, stack_b, ps), 0);
+	else if (!ft_strcmp(str, "rra\n"))
+		return (rra(stack_a, ps), 0);
+	else if (!ft_strcmp(str, "rrb\n"))
+		return (rrb(stack_b, ps), 0);
+	else if (!ft_strcmp(str, "rrr\n"))
+		return (rrr(stack_a, stack_b, ps), 0);
+	else
+		return (1);
+}
+
+int	get_instructions(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps)
+{
+	char	*temp;
+
+	temp = get_next_line(0);
+	if (temp == NULL)
+		return (free_stack(stack_a), free_stack(stack_b), write(1, "KO\n", 2),
+			exit(EXIT_FAILURE), 0);
 	while (temp != NULL)
 	{
-		j = 0;
-		while (j < stack_size(stack_a))
-		{
-			if (temp->value == tab[j])
-				temp->index = j;
-			j++;
-		}
-		temp = temp->next;
+		if (temp[0] == '\n')
+			return (free(temp), 0);
+		if (check_instructions(temp, stack_a, stack_b, ps))
+			return (free(temp), 0);
+		free(temp);
+		temp = get_next_line(0);
 	}
+	return (1);
 }
 
-void	sort_array(int *tab, int size)
+void	main_helper(t_stack *stack_a, t_stack *stack_b, t_pushswap *ps)
 {
-	int	i;
-	int	j;
-	int	holder;
-
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			if (tab[i] < tab[j])
-			{
-				holder = tab[i];
-				tab[i] = tab[j];
-				tab[j] = holder;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-void	push_a(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps)
-{
-	int	index;
-	int	highest;
-
-	highest = biggest_value(*stack_b);
-	index = indexing(*stack_b, highest);
-	while (stack_size(*stack_b) > 0)
-	{
-		if (highest == (*stack_b)->value)
-		{
-			pa(stack_a, stack_b, ps);
-			if (stack_size(*stack_b) > 0)
-			{
-				highest = biggest_value(*stack_b);
-				index = indexing(*stack_b, highest);
-			}
-		}
-		else
-		{
-			if (index <= stack_size(*stack_b) / 2
-				&& highest != (*stack_b)->value)
-				rb(stack_b, ps, 1);
-			else
-				rrb(stack_a, ps, 1);
-		}
-	}
-}
-
-int	find_position(t_stack *stack, int value)
-{
-	int	position;
-
-	position = 0;
-	while (value != stack->value)
-	{
-		position++;
-		stack = stack->next;
-	}
-	return (position);
-}
-
-int	find_highest(t_stack *stack)
-{
-	int	highest;
-
-	highest = stack->value;
-	while (stack)
-	{
-		if (highest < stack->value)
-			highest = stack->value;
-		stack = stack->next;
-	}
-	return (highest);
+	if (is_dup(stack_a))
+		return (free_stack(&stack_a), exit(EXIT_FAILURE));
+	if (!get_instructions(&stack_a, &stack_b, ps))
+		return (write(2, "Error\n", 6), free_stack(&stack_a),
+			free_stack(&stack_b), exit(EXIT_FAILURE));
+	if (is_sorted(stack_a) && stack_size(stack_b) == 0)
+		ft_printf("OK\n");
+	else
+		ft_printf("KO\n");
+	free_stack(&stack_a);
+	if (stack_b != NULL)
+		free_stack(&stack_b);
 }

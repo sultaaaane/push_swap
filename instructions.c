@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 15:19:19 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/31 15:18:41 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/04/01 20:21:17 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	sa(t_stack *stack, t_pushswap *ps, int flag)
 	stack->value = stack->next->value;
 	stack->next->value = holder;
 	if (flag)
-		ft_putstr_fd("sa\n",2);
+		ft_printf("sa\n");
 }
 
 void	sb(t_stack *stack, t_pushswap *ps, int flag)
@@ -35,14 +35,14 @@ void	sb(t_stack *stack, t_pushswap *ps, int flag)
 	stack->value = stack->next->value;
 	stack->next->value = holder;
 	if (flag)
-		ft_putstr_fd("sb\n",2);
+		ft_printf("sb\n");
 }
 
 void	ss(t_stack *stack_a, t_stack *stack_b, t_pushswap *ps)
 {
 	sa(stack_a, ps, 0);
 	sb(stack_b, ps, 0);
-	ft_putstr_fd("ss\n",2);
+	ft_printf("ss\n");
 }
 
 void	pa(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps)
@@ -52,7 +52,7 @@ void	pa(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps)
 	stack_addfront(stack_a, pop(stack_b));
 	ps->size_a++;
 	ps->size_b--;
-	ft_putstr_fd("pa\n",2);
+	ft_printf("pa\n");
 }
 
 int	smallest_value(t_stack *stack)

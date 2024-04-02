@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:24:48 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/29 11:19:04 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/04/02 21:09:38 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ void	pb(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps)
 	stack_addfront(stack_b, pop(stack_a));
 	ps->size_a--;
 	ps->size_b++;
-	ft_printf("pb\n");
 }
 
-void	ra(t_stack **stack, t_pushswap *ps, int flag)
+void	ra(t_stack **stack, t_pushswap *ps)
 {
 	t_stack	*temp;
 	t_stack	*last;
@@ -34,11 +33,9 @@ void	ra(t_stack **stack, t_pushswap *ps, int flag)
 	last->next = temp;
 	*stack = temp->next;
 	temp->next = NULL;
-	if (flag)
-		ft_printf("ra\n");
 }
 
-void	rb(t_stack **stack, t_pushswap *ps, int flag)
+void	rb(t_stack **stack, t_pushswap *ps)
 {
 	t_stack	*temp;
 	t_stack	*last;
@@ -50,18 +47,15 @@ void	rb(t_stack **stack, t_pushswap *ps, int flag)
 	last->next = temp;
 	*stack = temp->next;
 	temp->next = NULL;
-	if (flag)
-		ft_printf("rb\n");
 }
 
 void	rr(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps)
 {
-	ra(stack_a, ps, 0);
-	rb(stack_b, ps, 0);
-	ft_printf("rr\n");
+	ra(stack_a, ps);
+	rb(stack_b, ps);
 }
 
-void	rra(t_stack **stack, t_pushswap *ps, int flag)
+void	rra(t_stack **stack, t_pushswap *ps)
 {
 	t_stack	*last;
 	t_stack	*second_last;
@@ -77,6 +71,4 @@ void	rra(t_stack **stack, t_pushswap *ps, int flag)
 	second_last->next = NULL;
 	last->next = *stack;
 	*stack = last;
-	if (flag)
-		ft_printf("rra\n");
 }

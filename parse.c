@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 17:32:15 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/25 22:27:56 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/04/01 20:16:33 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	arg_char(char *str)
 	{
 		if (!ft_isdigit(str[i]))
 		{
-			ft_printf("Error");
+			ft_putstr_fd("Error\n", 2);
 			return (1);
 		}
 	}
@@ -76,7 +76,7 @@ int	is_dup(t_stack *stack)
 		{
 			if (temp->value == temp2->value)
 			{
-				ft_printf("Error\n");
+				ft_putstr_fd("Error\n", 2);
 				return (1);
 			}
 			temp2 = temp2->next;
