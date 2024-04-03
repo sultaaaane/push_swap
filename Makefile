@@ -52,3 +52,4 @@ fclean: clean
 	@make fclean -C libft
 	@make fclean -C ft_printf
 re: fclean all
+.SECONDARY: $(OBJ) $(BOBJ)

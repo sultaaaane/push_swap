@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:22:28 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/04/02 21:30:38 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/04/02 23:21:34 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,14 @@ int	get_instructions(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps)
 
 	temp = get_next_line(0);
 	if (temp == NULL)
-		return (free_stack(stack_a), free_stack(stack_b), write(1, "KO\n", 2),
+	{
+		if (is_sorted(*stack_a))
+			write(1, "OK\n", 3);
+		else
+			write(1, "KO\n", 3);
+		return (free_stack(stack_a), free_stack(stack_b),
 			exit(EXIT_FAILURE), 0);
+	}
 	while (temp != NULL)
 	{
 		if (temp[0] == '\n')

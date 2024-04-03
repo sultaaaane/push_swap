@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 17:32:15 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/03/29 11:19:04 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/04/03 09:56:13 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ long	patoi_check(long result)
 	return (0);
 }
 
-long	ft_patoi(const char *str)
+long	ft_patoi(char *str)
 {
 	int		i;
 	long	result;
@@ -40,7 +40,9 @@ long	ft_patoi(const char *str)
 	}
 	while (ft_isdigit(str[i]))
 		result = result * 10 + (str[i++] - '0');
-	if (patoi_check(result))
+	if (patoi_check(result * sign))
+		return (2147483648);
+	if (check_overflow(str))
 		return (2147483648);
 	return (result * sign);
 }
@@ -54,7 +56,7 @@ int	arg_char(char *str)
 	{
 		if (!ft_isdigit(str[i]))
 		{
-			ft_printf("Error");
+			ft_putstr_fd("Error\n", 2);
 			return (1);
 		}
 	}
@@ -76,7 +78,7 @@ int	is_dup(t_stack *stack)
 		{
 			if (temp->value == temp2->value)
 			{
-				ft_printf("Error\n");
+				ft_putstr_fd("Error\n", 2);
 				return (1);
 			}
 			temp2 = temp2->next;

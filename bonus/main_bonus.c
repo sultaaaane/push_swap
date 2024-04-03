@@ -6,11 +6,25 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 16:48:18 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/04/02 21:30:46 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/04/03 09:14:46 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
+
+int	check_overflow(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] == '-')
+		i++;
+	while (str[i] && str[i] == '0')
+		i++;
+	if (ft_strlen(&str[i]) > 12)
+		return (1);
+	return (0);
+}
 
 int	main(int ac, char **av)
 {
@@ -20,6 +34,8 @@ int	main(int ac, char **av)
 	int			i;
 
 	check_parse(ac, av);
+	if (ac == 1)
+		return (0);
 	stack_a = NULL;
 	stack_b = NULL;
 	i = 1;

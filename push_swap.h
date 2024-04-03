@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 16:48:32 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/04/02 21:46:41 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/04/02 23:18:31 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int					is_num(char *str);
 void				check_parse(int ac, char **av);
 void				push_to_stack(t_stack **stack, int ac, char **av);
 int					arg_char(char *str);
-long				ft_patoi(const char *str);
+long				ft_patoi(char *str);
 long				patoi_check(long result);
 int					is_empty(t_stack *stack);
 int					is_sorted(t_stack *stack);
@@ -90,5 +90,6 @@ void				sort_all(t_stack **stack_a, t_stack **stack_b,
 						t_pushswap *ps);
 int 				isallwhitespace(char *str);
 void	main_helper(t_stack **stack_a, t_stack **stack_b, t_pushswap *ps);
+int check_overflow(char *str);
 
 #endif

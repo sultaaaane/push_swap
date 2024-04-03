@@ -6,7 +6,7 @@
 /*   By: mbentahi <mbentahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 17:32:15 by mbentahi          #+#    #+#             */
-/*   Updated: 2024/04/01 20:16:33 by mbentahi         ###   ########.fr       */
+/*   Updated: 2024/04/02 23:18:21 by mbentahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ long	patoi_check(long result)
 	return (0);
 }
 
-long	ft_patoi(const char *str)
+long	ft_patoi(char *str)
 {
 	int		i;
 	long	result;
@@ -41,6 +41,8 @@ long	ft_patoi(const char *str)
 	while (ft_isdigit(str[i]))
 		result = result * 10 + (str[i++] - '0');
 	if (patoi_check(result))
+		return (2147483648);
+	if (check_overflow(str))
 		return (2147483648);
 	return (result * sign);
 }
